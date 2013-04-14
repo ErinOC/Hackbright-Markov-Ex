@@ -65,11 +65,9 @@ def make_text(chains):
         if ((key[0])[0]).isupper(): 
         #if the first letter of the first key tuple is uppercase, then add it to a list of caps words to start sentences
             caps_list[key] = value
-    print caps_list
 
     pick = random.choice(list(caps_list.keys()))
     first_word = pick[0]
-    print "First word:", first_word
     sentence = []
     while len(sentence) < 10:
         the_value = random.choice(chains1[pick]) #the value is a random value for the key previously chosen 
@@ -77,24 +75,20 @@ def make_text(chains):
         #the pick now starts with what had been the second word in the key
         sentence.append(pick[1]) 
 
-
-    while len(sentence) >= 10 and len(sentence) <= 30: 
+    while len(sentence) >= 10 and len(sentence) <= 25: 
     #after the sentence has reached a certain length, look for a key tuple in corpus 1 that is also in corpus2
-        if (pick[1])[-1] == "." and len(sentence) <= 20:
+        if (pick[1])[-1] == "." and len(sentence) >= 15:
             break
-            print sentence
         elif pick in chains2: 
         #if we can find a key tuple in both, pick that tuple (encouraging mashing from two sources)
             the_value = random.choice(chains2[pick])
             pick = (pick[1], the_value) 
             sentence.append(pick[1]) 
-            print sentence
         else:
         #otherwise, continue working with the first list of words
             the_value = random.choice(chains1[pick]) 
             pick = (pick[1], the_value) 
             sentence.append(pick[1]) 
-            print sentence
 
     sentence2 = first_word
     for word in sentence:
@@ -120,11 +114,6 @@ def main():
 
     random_text = make_text(chain_dict)
     #this variable takes the Markov chains dictionary and runs it through the second function, make_text
-    print "RESULT: ", random_text
-
-    random_text2 = make_text(chain_dict)
-    #this variable takes the Markov chains dictionary and runs it through the second function, make_text
-    print "RESULT: ", random_text2
 
 if __name__ == "__main__":
     main()
